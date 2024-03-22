@@ -26,6 +26,14 @@ contract FundMe {
     mapping (address funders => uint256 amounFunded) public fundedAmountBy;
     address[] public funders;
 
+    receive() external payable {
+        fund();
+    }
+
+    fallback() external payable { 
+        fund();
+    }
+
     function fund() public payable minimumAmount {
         require(msg.value.getConversionRate()> minimumUsd, "The minimum amnout to send is 5 USD");
         fundedAmountBy[msg.sender] = fundedAmountBy[msg.sender] + msg.value;
@@ -43,7 +51,6 @@ contract FundMe {
         //As it returns nothing, we can write
         (bool successCall, ) = payable(msg.sender).call{value: address(this).balance}("");    
         require(successCall, "Call to send ETH failed");
- 
     }
 
 
