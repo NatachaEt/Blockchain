@@ -1,1 +1,1 @@
-Apprentissage développement sur la blockchaine
+Apprentissage dev sur la blockchaine avec le langage  Solidity
